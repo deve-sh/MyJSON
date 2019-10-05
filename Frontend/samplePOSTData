@@ -1,0 +1,22 @@
+{
+	"fields" : {
+		"name": {
+			"type": "text",
+			"choice" : "words",
+			"n" : 10
+		},
+		"Id": {
+			"type": "number",
+			"serial":true
+		},
+		"password" : {
+			"type" : "password",
+			"randomLength" : true
+		},
+		"random" : {
+			"type":"text-unspaced",
+			"len":2
+		},
+		"n":1
+	}
+}
