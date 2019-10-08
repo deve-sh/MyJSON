@@ -30,7 +30,7 @@ body {
 }
 
 #header {
-  padding: 0;
+  padding: 1rem 0;
   width: 100%;
   background: rgb(0, 129, 203);
   color: white;
@@ -39,6 +39,14 @@ body {
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   position: fixed;
   z-index: 100;
+}
+
+#header .alignright {
+  text-align: right;
+}
+
+#header .darkmodebutton {
+  cursor: pointer;
 }
 
 #introducer {
