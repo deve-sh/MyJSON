@@ -8,7 +8,7 @@ const bCrypt = require("bcrypt");	// For Hashing the Fake Passwords.
 
 const abs = num => num<0 ? -num : num;		// Absolute function for a strictly positive number.
 
-function customGen(req, res, fields = {}, serialCount = 1, nobjects = 1){
+function customGen(req, res, fields = {}, serialCount = 0, nobjects = 1){
 	// Function to generate custom data for sending, it takes req, res and fields of the options received from the post request as its arguments.
 
 	/* -------------------
@@ -138,12 +138,19 @@ function customGen(req, res, fields = {}, serialCount = 1, nobjects = 1){
 			else if(fields[field].type.toLowerCase() === 'text-unspaced'){
 				// If the field is to be a text field, but without spaces and meaning.
 
-				if(Number(fields[field].len) && (Number(fields[field].len) > 0 && Number(fields[field].len) < 256)){
-					fieldOb[field] = dataGen.generateText(fields[field].len);
+				if(
+					Number(fields[field].length) && 
+					(Number(fields[field].length) > 0 && 
+						Number(fields[field].length) < 256)
+				){
+					fieldOb[field] = dataGen.generateText(fields[field].length);
 				}
 				else{
-					res.status(400).json({error: "Invalid Length for text."});
-					return;
+					// Generate a random length of unspaced text and send it.
+
+					const [minLen, maxLen] = [6, 15];
+
+					fieldOb[field] = dataGen.generateText(Math.floor(Math.random() * (maxLen - minLen) + minLen));
 				}
 			}
 		}
