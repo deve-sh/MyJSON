@@ -5,6 +5,7 @@
 
 const dataGen = require("./dataGen");
 const bCrypt = require("bcrypt");	// For Hashing the Fake Passwords.
+const { errors } = require("../errors");
 
 const abs = num => num<0 ? -num : num;		// Absolute function for a strictly positive number.
 
@@ -30,6 +31,9 @@ function customGen(req, res, fields = {}, serialCount = 0, nobjects = 1){
 	        "type" : "password",
 	        "randomLength" : false,
 	        "length": 5
+	      },
+	      "username": {
+			"type": "text-unspaced"
 	      }
 	    },
 	    "n" : 10
@@ -99,7 +103,7 @@ function customGen(req, res, fields = {}, serialCount = 0, nobjects = 1){
 								&& abs(max - min) < nobjects
 							)
 						)
-						res.status(400).json({error: "Range invalid."});
+						res.status(400).json({ error: errors.INVALIDRANGE });
 
 					if(min > max)
 						[min, max] = [max, min];
@@ -150,7 +154,11 @@ function customGen(req, res, fields = {}, serialCount = 0, nobjects = 1){
 
 					const [minLen, maxLen] = [6, 15];
 
-					fieldOb[field] = dataGen.generateText(Math.floor(Math.random() * (maxLen - minLen) + minLen));
+					fieldOb[field] = dataGen.generateText(
+						Math.floor(
+							Math.random() * (maxLen - minLen) + minLen
+							)
+						);
 				}
 			}
 		}

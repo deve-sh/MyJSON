@@ -56,11 +56,11 @@ app.post('/api/getjson', (req, res) => {
 
 			if(Number(req.body.n) && req.body.n > 0 && req.body.n <= 50){
 				for(let i = 0;i<req.body.n;i++){
-					dataToSend.push(customGen(req, res, fields,i + 1, req.body.n));	// Generate entries one by one.
+					dataToSend.push(customGen(req, res, fields, i, req.body.n));	// Generate entries one by one.
 				}
 			}
 			else{
-				res.status(400).json({error: "Invalid Number of Data Packets Requested."});
+				res.status(400).json({ error: errors.INVALIDNOBS });
 				return;
 			}
 
