@@ -16,4 +16,31 @@ For instructions on how to set the app up, just follow the guide in the main REA
 
 ## Routes
 
-### /api/getjson
+### `POST /api/getjson`
+
+This is the most important route of the app, or rather, the app that sets this out from all the other apps. This route accepts a JSON Object as its request body in the form : 
+
+```js
+body : {
+    fields : {
+      ID: {
+    	type: "number",
+        range: [10,25],
+        serial : true
+      },
+      name: {
+        type: "text",
+        choice : "words",
+        n : 2
+      },
+      password : {
+        type : "password",
+        randomLength : false,
+        length: 5
+      },
+      username: {
+		type: "text-unspaced"
+      }
+    },
+    n : 10
+```
