@@ -10,4 +10,4 @@ const errors = {
 	INVALIDRANGE: "Invalid Range"
 };
 
-module.exports = { errors }
+module.exports = { errors };
