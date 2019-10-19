@@ -18,13 +18,13 @@ For instructions on how to set the app up, just follow the guide in the main REA
 
 ### `POST /api/getjson`
 
-This is the most important route of the app, or rather, the app that sets this out from all the other apps. This route accepts a JSON Object as its request body in the form : 
+This is the most important route of the app, or rather, the app that sets this out from all the other apps. This route accepts a JSON Object as its request body in the form :
 
 ```js
 body : {
     fields : {
       ID: {
-    	type: "number",
+      type: "number",
         range: [10,25],
         serial : true
       },
@@ -39,9 +39,41 @@ body : {
         length: 5
       },
       username: {
-		type: "text-unspaced"
+    type: "text-unspaced"
       }
     },
     n : 10
+}
+```
+
+These are the supported types of Data Requestable from the route :
+
+- text
+
+```json
+{
+  "type": "text",
+  "choice": "words/para (Default : 2 paragraphs of lorem ipsum.)",
+  "n": "Number of words or paras"
+}
+```
+
+- text-unspaced : Used to generate non spaced strings of random characters, example : Usernames, titles etc.
+
+```json
+{
+  "type": "text-unspaced",
+  "n": "Number of characters (Default : 20)"
+}
+```
+
+- number : Used to generate serial and random numbers.
+
+```json
+{
+  "type": "number",
+  "range": ["Number1", "Number2"], // Used only when you are generating inside a range. Default is random numbers below 10.
+  "serial": "boolean", // Required if the data is serial, for example : when generating userIDs. Default: false
+  "floating": "boolean" // Send as true if the numbers are supposed to be floating point numbers or integers. Default: false
 }
 ```

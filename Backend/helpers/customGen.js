@@ -119,13 +119,17 @@ function customGen(req, res, fields = {}, serialCount = 0, nobjects = 1) {
 					fieldOb[field] =
 						fields[field].serial === true
 							? serialCount + min
-							: Math.floor(Math.random() * (max - min + 1)) + min; // Generated a random number in the range.
+							: !fields[field].floating
+							? Math.floor(Math.random() * (max - min)) + min
+							: Math.random() * (max - min) + min; // Generated a random number in the range.
 				} else if (fields[field].serial === true) {
 					// If the data is to be serial.
 
 					fieldOb[field] = serialCount;
 				} else {
-					fieldOb[field] = Math.floor(Math.random() * 10);
+					fieldOb[field] = !fields[field].floating
+						? Math.floor(Math.random() * 10)
+						: Math.random() * 10;
 				}
 			} else if (
 				fields[field].type.toLowerCase() === "password" ||
