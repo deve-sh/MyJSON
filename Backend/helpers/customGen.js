@@ -172,8 +172,8 @@ function customGen(req, res, fields = {}, serialCount = 0, nobjects = 1) {
 				}
 				name = dataGen.generateText(nameLength);
 				let mainBody = "";
-				if (fields[field]["mainBody"]) {
-					mainBody = fields[field]["mainBody"];
+				if (fields[field]["serviceProvider"]) {
+					mainBody = fields[field]["serviceProvider"];
 				} else {
 					mainBody =
 						dataGen.generateText(6) +

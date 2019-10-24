@@ -77,3 +77,14 @@ These are the supported types of Data Requestable from the route :
   "floating": "boolean" // Send as true if the numbers are supposed to be floating point numbers or integers. Default: false
 }
 ```
+
+- email : Used to generate email addresses. You can specify the length of the name, (the **top level domain** or the **entire service provider**).
+
+```json
+{
+  "type": "email",
+  "tld": "in",   // Will Give .in email addresses.
+  "serviceProvider": "xyz.com",   // Cannot be used in conjunction with Top Level Domain.
+  "nameLength": 6   // Length of the name in name@serviceProvider
+}
+```
