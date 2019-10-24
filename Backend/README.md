@@ -39,52 +39,54 @@ body : {
         length: 5
       },
       username: {
-    type: "text-unspaced"
+        type: "text-unspaced"
       }
     },
     n : 10
 }
 ```
 
+**Note** : The following code snippets are examples of the data one has to send to the API. Do convert it to JSON before sending it.
+
 These are the supported types of Data Requestable from the route :
 
 - text
 
-```json
+```js
 {
-  "type": "text",
-  "choice": "words/para (Default : 2 paragraphs of lorem ipsum.)",
-  "n": "Number of words or paras"
+  type: "text",
+  choice: "words/para (Default : 2 paragraphs of lorem ipsum.)",
+  n: "Number of words or paras"
 }
 ```
 
-- text-unspaced : Used to generate non spaced strings of random characters, example : Usernames, titles etc.
+- **text-unspaced** : Used to generate non spaced strings of random characters, example : Usernames, titles etc.
 
-```json
+```js
 {
-  "type": "text-unspaced",
-  "n": "Number of characters (Default : 20)"
+  type: "text-unspaced",
+  n: "Number of characters (Default : 20)"
 }
 ```
 
-- number : Used to generate serial and random numbers.
+- **number** : Used to generate serial and random numbers.
 
-```json
+```js
 {
-  "type": "number",
-  "range": ["Number1", "Number2"], // Used only when you are generating inside a range. Default is random numbers below 10.
-  "serial": "boolean", // Required if the data is serial, for example : when generating userIDs. Default: false
-  "floating": "boolean" // Send as true if the numbers are supposed to be floating point numbers or integers. Default: false
+  type: "number",
+  range: ["Number1", "Number2"], // Used only when you are generating inside a range. Default is random numbers below 10.
+  serial: "boolean", // Required if the data is serial, for example : when generating userIDs. Default: false
+  floating: "boolean" // Send as true if the numbers are supposed to be floating point numbers or integers. Default: false
 }
 ```
 
-- email : Used to generate email addresses. You can specify the length of the name, (the **top level domain** or the **entire service provider**).
+- **email** : Used to generate email addresses. You can specify the length of the name, (the **top level domain** or the **entire service provider**).
 
-```json
+```js
 {
-  "type": "email",
-  "tld": "in",   // Will Give .in email addresses.
-  "serviceProvider": "xyz.com",   // Cannot be used in conjunction with Top Level Domain.
-  "nameLength": 6   // Length of the name in name@serviceProvider
+  type: "email",
+  tld: "in",   // Will Give .in email addresses.
+  serviceProvider: "xyz.com",   // Cannot be used in conjunction with Top Level Domain.
+  nameLength: 6   // Length of the name in name@serviceProvider
 }
 ```
