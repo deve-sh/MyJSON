@@ -149,9 +149,9 @@ function customGen(req, res, fields = {}, serialCount = 0, nobjects = 1) {
 				// If the field is to be a text field, but without spaces and meaning.
 
 				if (
-					Number(fields[field].length) &&
-					(Number(fields[field].length) > 0 &&
-						Number(fields[field].length) < 256)
+					Number(fields[field]["length"]) &&
+					(Number(fields[field]["length"]) > 0 &&
+						Number(fields[field]["length"]) < 256)
 				) {
 					fieldOb[field] = dataGen.generateText(fields[field].length);
 				} else {
@@ -163,6 +163,25 @@ function customGen(req, res, fields = {}, serialCount = 0, nobjects = 1) {
 						Math.floor(Math.random() * (maxLen - minLen) + minLen)
 					);
 				}
+			} else if (fields[field].type.toLowerCase() === "email") {
+				// Email
+				let nameLength = 6,
+					name = "";
+				if (fields[field]["nameLength"]) {
+					nameLength = abs(Number(fields[field]["nameLength"])) || 6;
+				}
+				name = dataGen.generateText(nameLength);
+				let mainBody = "";
+				if (fields[field]["mainBody"]) {
+					mainBody = fields[field]["mainBody"];
+				} else {
+					mainBody =
+						dataGen.generateText(6) +
+						"." +
+						(fields[field]["tld"] ? fields[field]["tld"] : "com");
+				}
+
+				fieldOb[field] = name + "@" + mainBody;
 			}
 		}
 	}
