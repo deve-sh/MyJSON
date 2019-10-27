@@ -111,3 +111,11 @@ If you want to generate text passwords that are not in the form of hashes, just 
   randomLength: true  // Boolean : Generate random passwords of random length.
 }
 ```
+
+For now, these are the only available formats of data generation. Have fun with them.
+
+## Contribution and Issues
+
+For contribution to the backend, view the manual in the README for the root of the project.
+
+For issues, suggestions and questions, just raise an issue in the repository.
