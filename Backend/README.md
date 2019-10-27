@@ -50,13 +50,13 @@ body : {
 
 These are the supported types of Data Requestable from the route :
 
-- text
+- **text** : Used to generate random lorem ipsum texts consisting of a set of n words or paragraphs.
 
 ```js
 {
   type: "text",
   choice: "words/para (Default : 2 paragraphs of lorem ipsum.)",
-  n: "Number of words or paras"
+  n: "Number of words or paras" // Max : 50, Min : 1
 }
 ```
 
@@ -88,5 +88,26 @@ These are the supported types of Data Requestable from the route :
   tld: "in",   // Will Give .in email addresses.
   serviceProvider: "xyz.com",   // Cannot be used in conjunction with Top Level Domain.
   nameLength: 6   // Length of the name in name@serviceProvider
+}
+```
+
+- **boolean** : Used to generate `true` or `false` values depending on the need. It generates true or false based on `Math.random` by generating true if the outcome of Math.random is over 0.5 and false otherwise, hence, giving both of them a 50 - 50 chance of occuring.
+
+```js
+{
+  type: "boolean"
+} // That's it for boolean. No optiong available for now.
+```
+
+- **password** : Used to generate **hashes** for random passwords for storage in a database. These passwords are hashed using the `bCrypt` library for Node.js.
+
+The default length of a random password generated is 8 (Right now there aren't many choices regarding that, since the length of the password hardly has any effect on the length of the hash. (Do correct me if I am wrong here.) )
+
+If you want to generate text passwords that are not in the form of hashes, just use the **text-unspaced** format for data.
+
+```js
+{
+  type: "password",    // "pass" will work too.
+  randomLength: true  // Boolean : Generate random passwords of random length.
 }
 ```
