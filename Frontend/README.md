@@ -34,6 +34,11 @@ You can change the remote backend URL if you are using the app in production in 
 
 Now you can follow the setup in the app that you just launched in order to modify the structure of the data you need, and get the JSON you need.
 
+## Caveats
+
+- You can break the backend every now and then with wrong punctuation/syntax of the request body.
+- The limit to the number of objects to be requested per request is 50 at the moment.
+
 ## Issues, Contributions and Suggestions
 
 For issues, open an issue in the repo.
