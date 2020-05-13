@@ -10,9 +10,32 @@ The MyJSON Backend acts as custom Fake JSON Generator for various purposes such 
 
 MyJSON Allows various routes for fakedata, many of them are identical to [JSON Placeholder](https://jsonplaceholder.typicode.com) which is a big inspiration for this app. The most important one however is the `POST api/getjson` route.
 
-Let's have a look at the routes.
+Let's have a look at the setting up and the routes you can use to get the appropriate response.
 
-For instructions on how to set the app up, just follow the guide in the main README at the Repository Root.
+## Setting Up
+
+For setting up, just clone the repository and follow the following commands:
+
+```bash
+git clone https://github.com/deve-sh/MyJSON.git
+cd MyJSON/Frontend
+npm install
+```
+
+In order to run the development version:
+
+```bash
+npm i -g nodemon  # For hot reloads on file changes. Don't install if you already have it.
+npm run dev
+```
+
+In order to run the production/unchangeable version:
+
+```bash
+npm run start
+```
+
+This should start the server on port `4567`. You can always change the port in the **`config/index.js`** file.
 
 ## Routes
 
@@ -116,6 +139,8 @@ For now, these are the only available formats of data generation. Have fun with 
 
 ## Contribution and Issues
 
-For contribution to the backend, view the manual in the README for the root of the project.
+The repo and project aren't perfect, but they should do the job nonetheless.
 
-For issues, suggestions and questions, just raise an issue in the repository.
+For issues, open an issue in the repo.
+For contributions, just make the changes necessary by forking the repo and open a pull request. Pull requests that pass and are deemed worthwhile will be merged.
+For suggestions, just [mail me](mailto:devesh2027@gmail.com).

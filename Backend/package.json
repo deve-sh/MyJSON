@@ -1,5 +1,5 @@
 {
-  "name": "customjson-backend",
+  "name": "myjson-backend",
   "version": "1.0.0",
   "description": "A Custom JSON Server. Easy-Peasy.",
   "main": "index.js",
