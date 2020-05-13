@@ -10,6 +10,8 @@ The MyJSON Backend acts as custom Fake JSON Generator for various purposes such 
 
 MyJSON Allows various routes for fakedata, many of them are identical to [JSON Placeholder](https://jsonplaceholder.typicode.com) which is a big inspiration for this app. The most important one however is the `POST api/getjson` route.
 
+Try it out [https://myjson.now.sh](here).
+
 Let's have a look at the setting up and the routes you can use to get the appropriate response.
 
 ## Setting Up
@@ -18,7 +20,7 @@ For setting up, just clone the repository and follow the following commands:
 
 ```bash
 git clone https://github.com/deve-sh/MyJSON.git
-cd MyJSON/Frontend
+cd MyJSON/Backend
 npm install
 ```
 
