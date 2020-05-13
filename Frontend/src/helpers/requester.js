@@ -4,14 +4,20 @@ import { AJAX } from "lesser.js";
 import config from "../config";
 
 export default function(data = `{}`, callback = () => {}) {
-  const endpoint = `${config.HTTP}${config.BACKENDURL}${config.GETJSON}`;
+	const endpoint = `${
+		process.env.NODE_ENV === "production" ? config.HTTPS : config.HTTP
+	}${
+		process.env.NODE_ENV === "production"
+			? config.REMOTEBACKEND
+			: config.BACKENDURL
+	}${config.GETJSON}`;
 
-  AJAX(
-    "POST",
-    endpoint,
-    res => {
-      callback(res);
-    },
-    data
-  );
+	AJAX(
+		"POST",
+		endpoint,
+		(res) => {
+			callback(res);
+		},
+		data
+	);
 }

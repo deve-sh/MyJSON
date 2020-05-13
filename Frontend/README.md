@@ -30,6 +30,8 @@ npm start # or npm run dev # if you have nodemon installed
 Following the above instructions launches an app on ports `4567` (Backend) and `3000` (Frontend),
 you can edit the configuration of the frontend in the **`src/config/index.js`** file.
 
+You can change the remote backend URL if you are using the app in production in the config file as well.
+
 Now you can follow the setup in the app that you just launched in order to modify the structure of the data you need, and get the JSON you need.
 
 ## Issues, Contributions and Suggestions
