@@ -147,6 +147,10 @@ body {
   width: 0;
 }
 
+a {
+  text-decoration: none;
+}
+
 /* Dark Mode Additions */
 
 .darkbody {
