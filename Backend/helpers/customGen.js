@@ -47,7 +47,9 @@ function customGen(req, res, fields = {}, serialCount = 0, nobjects = 1) {
 		if (fields.hasOwnProperty(field) && field !== "n") {
 			// Checking the type of field.
 
-			if (fields[field].type.toLowerCase() === "text") {
+			let fieldType = fields[field].type.toLowerCase();
+
+			if (fieldType === "text") {
 				// If the field is a textfield.
 
 				switch (fields[field].choice) {
@@ -89,11 +91,58 @@ function customGen(req, res, fields = {}, serialCount = 0, nobjects = 1) {
 					default:
 						fieldOb[field] = dataGen.getLoremIpsum(); // Just give the default text.
 				}
-			} else if (
-				fields[field].type.toLowerCase() === "boolean"
-			)
-				fieldOb[field] = Math.random() >= 0.5 ? true : false; // Give a random boolean.
-			else if (fields[field].type.toLowerCase() === "number") {
+			} else if (fieldType === "password" || fieldType === "pass") {
+				// If the user needs a password field. Then we will send a hashed password.
+
+				let randPass = dataGen.randomPass();
+
+				if (fields[field].randomLength === true)
+					randPass = dataGen.randomPass(true);
+
+				let hash = bCrypt.hashSync(randPass, 10); // Hash the password using bcrypt.
+
+				fieldOb[field] = hash;
+			} else if (fieldType === "text-unspaced") {
+				// If the field is to be a text field, but without spaces and meaning.
+
+				if (
+					Number(fields[field]["length"]) &&
+					(Number(fields[field]["length"]) > 0 &&
+						Number(fields[field]["length"]) < 256)
+				) {
+					fieldOb[field] = dataGen.generateText(fields[field].length);
+				} else {
+					// Generate a random length of unspaced text and send it.
+
+					const [minLen, maxLen] = [6, 15];
+
+					fieldOb[field] = dataGen.generateText(
+						Math.floor(Math.random() * (maxLen - minLen) + minLen)
+					);
+				}
+			} else if (fieldType === "email") {
+				// Email
+				let nameLength = 6,
+					name = "";
+				if (fields[field]["nameLength"]) {
+					nameLength = abs(Number(fields[field]["nameLength"])) || 6;
+				}
+				name = dataGen.generateText(nameLength);
+				let mainBody = "";
+				if (fields[field]["serviceProvider"]) {
+					mainBody = fields[field]["serviceProvider"];
+				} else {
+					mainBody =
+						dataGen.generateText(6) +
+						"." +
+						(fields[field]["tld"] ? fields[field]["tld"] : "com");
+				}
+
+				fieldOb[field] = name + "@" + mainBody;
+			} else if (fieldType === "boolean")
+				fieldOb[field] = Math.random() >= 0.5 ? true : false;
+			// Give a random boolean.
+			else if (fieldType === "number") {
 				if (fields[field].range && Array.isArray(fields[field].range)) {
 					// If the user has passed a range for the numbers.
 
@@ -130,57 +179,6 @@ function customGen(req, res, fields = {}, serialCount = 0, nobjects = 1) {
 						? Math.floor(Math.random() * 10)
 						: Math.random() * 10;
 				}
-			} else if (
-				fields[field].type.toLowerCase() === "password" ||
-				fields[field].type.toLowerCase() === "pass"
-			) {
-				// If the user needs a password field. Then we will send a hashed password.
-
-				let randPass = dataGen.randomPass();
-
-				if (fields[field].randomLength === true)
-					randPass = dataGen.randomPass(true);
-
-				let hash = bCrypt.hashSync(randPass, 10); // Hash the password using bcrypt.
-
-				fieldOb[field] = hash;
-			} else if (fields[field].type.toLowerCase() === "text-unspaced") {
-				// If the field is to be a text field, but without spaces and meaning.
-
-				if (
-					Number(fields[field]["length"]) &&
-					(Number(fields[field]["length"]) > 0 &&
-						Number(fields[field]["length"]) < 256)
-				) {
-					fieldOb[field] = dataGen.generateText(fields[field].length);
-				} else {
-					// Generate a random length of unspaced text and send it.
-
-					const [minLen, maxLen] = [6, 15];
-
-					fieldOb[field] = dataGen.generateText(
-						Math.floor(Math.random() * (maxLen - minLen) + minLen)
-					);
-				}
-			} else if (fields[field].type.toLowerCase() === "email") {
-				// Email
-				let nameLength = 6,
-					name = "";
-				if (fields[field]["nameLength"]) {
-					nameLength = abs(Number(fields[field]["nameLength"])) || 6;
-				}
-				name = dataGen.generateText(nameLength);
-				let mainBody = "";
-				if (fields[field]["serviceProvider"]) {
-					mainBody = fields[field]["serviceProvider"];
-				} else {
-					mainBody =
-						dataGen.generateText(6) +
-						"." +
-						(fields[field]["tld"] ? fields[field]["tld"] : "com");
-				}
-
-				fieldOb[field] = name + "@" + mainBody;
 			}
 		}
 	}
