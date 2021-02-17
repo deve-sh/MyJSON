@@ -7,7 +7,7 @@ const dataGen = require("./dataGen");
 const bCrypt = require("bcrypt"); // For Hashing the Fake Passwords.
 const { errors } = require("../errors");
 
-const abs = num => (num < 0 ? -num : num); // Absolute function for a strictly positive number.
+const abs = (num) => (num < 0 ? -num : num); // Absolute function for a strictly positive number.
 
 function customGen(req, res, fields = {}, serialCount = 0, nobjects = 1) {
 	// Function to generate custom data for sending, it takes req, res and fields of the options received from the post request as its arguments.
@@ -90,11 +90,10 @@ function customGen(req, res, fields = {}, serialCount = 0, nobjects = 1) {
 						fieldOb[field] = dataGen.getLoremIpsum(); // Just give the default text.
 				}
 			} else if (
-				fields[field].type.toLowerCase() === "boolean" ||
 				fields[field].type.toLowerCase() === "boolean"
-			) {
+			)
 				fieldOb[field] = Math.random() >= 0.5 ? true : false; // Give a random boolean.
-			} else if (fields[field].type.toLowerCase() === "number") {
+			else if (fields[field].type.toLowerCase() === "number") {
 				if (fields[field].range && Array.isArray(fields[field].range)) {
 					// If the user has passed a range for the numbers.
 
@@ -191,5 +190,5 @@ function customGen(req, res, fields = {}, serialCount = 0, nobjects = 1) {
 
 module.exports = {
 	abs,
-	customGen
+	customGen,
 };
