@@ -7,8 +7,6 @@ const dataGen = require("./dataGen");
 const bCrypt = require("bcrypt"); // For Hashing the Fake Passwords.
 const { errors } = require("../errors");
 
-const abs = (num) => (num < 0 ? -num : num); // Absolute function for a strictly positive number.
-
 function customGen(req, res, fields = {}, serialCount = 0, nobjects = 1) {
 	// Function to generate custom data for sending, it takes req, res and fields of the options received from the post request as its arguments.
 
@@ -91,17 +89,6 @@ function customGen(req, res, fields = {}, serialCount = 0, nobjects = 1) {
 					default:
 						fieldOb[field] = dataGen.getLoremIpsum(); // Just give the default text.
 				}
-			} else if (fieldType === "password" || fieldType === "pass") {
-				// If the user needs a password field. Then we will send a hashed password.
-
-				let randPass = dataGen.randomPass();
-
-				if (fields[field].randomLength === true)
-					randPass = dataGen.randomPass(true);
-
-				let hash = bCrypt.hashSync(randPass, 10); // Hash the password using bcrypt.
-
-				fieldOb[field] = hash;
 			} else if (fieldType === "text-unspaced") {
 				// If the field is to be a text field, but without spaces and meaning.
 
@@ -120,12 +107,22 @@ function customGen(req, res, fields = {}, serialCount = 0, nobjects = 1) {
 						Math.floor(Math.random() * (maxLen - minLen) + minLen)
 					);
 				}
+			} else if (fieldType === "uuid") {
+			} else if (fieldType === "password" || fieldType === "pass") {
+				// If the user needs a password field. Then we will send a hashed password.
+
+				let randPass = dataGen.randomPass(!!fields[field].randomLength);
+
+				let hash = bCrypt.hashSync(randPass, 10); // Hash the password using bcrypt.
+
+				fieldOb[field] = hash;
 			} else if (fieldType === "email") {
 				// Email
 				let nameLength = 6,
 					name = "";
 				if (fields[field]["nameLength"]) {
-					nameLength = abs(Number(fields[field]["nameLength"])) || 6;
+					nameLength =
+						Math.abs(Number(fields[field]["nameLength"])) || 6;
 				}
 				name = dataGen.generateText(nameLength);
 				let mainBody = "";
@@ -155,7 +152,7 @@ function customGen(req, res, fields = {}, serialCount = 0, nobjects = 1) {
 						min === max ||
 						(fields[field].hasOwnProperty("serial") &&
 							fields[field].serial === true &&
-							abs(max - min) < nobjects)
+							Math.abs(max - min) < nobjects)
 					)
 						res.status(400).json({ error: errors.INVALIDRANGE });
 
@@ -187,6 +184,6 @@ function customGen(req, res, fields = {}, serialCount = 0, nobjects = 1) {
 }
 
 module.exports = {
-	abs,
+	abs: Math.abs,
 	customGen,
 };
