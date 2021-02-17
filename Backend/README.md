@@ -90,7 +90,7 @@ These are the supported types of Data Requestable from the route :
 ```js
 {
   type: "text-unspaced",
-  n: "Number of characters (Default : 20)"
+  length: "Number of characters (Default : 20)"
 }
 ```
 
