@@ -94,6 +94,14 @@ These are the supported types of Data Requestable from the route :
 }
 ```
 
+- **uuid** : Used to generate `uuid`s.
+
+```js
+{
+  type: "uuid"
+}
+```
+
 - **number** : Used to generate serial and random numbers.
 
 ```js

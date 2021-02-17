@@ -3,6 +3,7 @@
 */
 
 const LoremIpsum = require("lorem-ipsum").LoremIpsum; // Module to generate lorem ipsum text.
+const { v4: uuid } = require('uuid')
 
 const lorem = new LoremIpsum({
 	// Configuring the Lorem Ipsum generator.
@@ -68,8 +69,13 @@ function getLoremIpsum(paragraph = true, words = false, n = 2) {
 	}
 }
 
+function generateUUID(){
+	return uuid();
+}
+
 module.exports = {
 	getLoremIpsum,
 	randomPass,
-	generateText
+	generateText,
+	generateUUID
 };

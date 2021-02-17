@@ -108,6 +108,7 @@ function customGen(req, res, fields = {}, serialCount = 0, nobjects = 1) {
 					);
 				}
 			} else if (fieldType === "uuid") {
+				fieldOb[field] = dataGen.generateUUID();
 			} else if (fieldType === "password" || fieldType === "pass") {
 				// If the user needs a password field. Then we will send a hashed password.
 
