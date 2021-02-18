@@ -16,6 +16,9 @@ const Tryout = props => {
         "range": [10,25],
         "serial" : true
       },
+      "uid": {
+        "type": "uuid"
+      },
       "name": {
         "type": "text",
         "choice" : "words",
